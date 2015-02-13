@@ -59,9 +59,7 @@ mkdir -p /app/.heroku/python/include/python2.7
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
-  dpkg -x $DEB /app/.heroku/python/include/python2.7
-  echo $(ls "/app/.heroku/python/include/python2.7/usr/")
-  echo $(ls "/app/.heroku/python/include/python2.7/usr/lib/")
+  dpkg -x $DEB /app/.heroku/vendor/
 done
 
 topic "Writing profile script"
@@ -86,6 +84,3 @@ export PKG_CONFIG_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$BUIL
 
 #give environment to later buildpacks
 export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPPATH|PKG_CONFIG_PATH)='  > "$LP_DIR/export"
-echo "========================================="
-printenv
-echo "========================================="
