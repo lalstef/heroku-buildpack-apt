@@ -56,12 +56,12 @@ done
 echo $BUILD_DIR
 mkdir -p $BUILD_DIR/.apt
 mkdir -p /app/.heroku/python/include/python2.7
-mkdir -p "$HOME/vendor/ffmpeg/lib"
+mkdir -p /usr/include/ffmpeg
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
-  dpkg -x $DEB /app/.heroku/python/include/python2.7
-  echo $(ls /app/.heroku/python/include/python2.7)
+  dpkg -x $DEB /usr/include/ffmpeg
+  echo $(ls /usr/include/ffmpeg)
 done
 
 topic "Writing profile script"
