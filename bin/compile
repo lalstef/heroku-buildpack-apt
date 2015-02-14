@@ -60,7 +60,7 @@ mkdir -p "$HOME/vendor/ffmpeg/lib"
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
-  dpkg -x $DEB "$HOME/vendor/ffmpeg/lib"
+  dpkg -x $DEB /app/.heroku/python/include/python2.7
 done
 
 topic "Writing profile script"
