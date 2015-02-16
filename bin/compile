@@ -66,6 +66,9 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
   dpkg -x $DEB $BUILD_DIR/.apt
   echo $(ls -la "$BUILD_DIR/.apt")
+  echo $(ls -a "$BUILD_DIR/.apt/usr")
+  echo $(ls -a "$BUILD_DIR/.apt/usr/include")
+  echo $(ls -a "$BUILD_DIR/.apt/usr/lib")
 done
 
 topic "Writing profile script"
