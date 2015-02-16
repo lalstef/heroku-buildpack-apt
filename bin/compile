@@ -60,8 +60,8 @@ mkdir -p /usr/include/ffmpeg
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
-  dpkg -x $DEB /usr/include/ffmpeg
-  echo $(ls /usr/include/ffmpeg)
+  dpkg -x $DEB /app/.heroku/python/include/python2.7
+  echo $(ls /app/.heroku/python/include/python2.7/usr/include/)
 done
 
 topic "Writing profile script"
