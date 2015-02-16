@@ -33,12 +33,8 @@ function indent() {
   esac
 }
 
-#APT_CACHE_DIR="$CACHE_DIR/apt/cache"
-#APT_STATE_DIR="$CACHE_DIR/apt/state"
-
-mkdir -p /app/cache_test
-APT_CACHE_DIR="/app/cache_test/apt/cache"
-APT_STATE_DIR="/app/cache_test/apt/state"
+APT_CACHE_DIR="$CACHE_DIR/apt/cache"
+APT_STATE_DIR="$CACHE_DIR/apt/state"
 
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
@@ -48,7 +44,7 @@ APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state
 topic "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
-for PACKAGE in $(cat $BUILD_DIR/Aptfile); do
+for PACKAGE in $(cat $ORIG_BUILD_DIR/Aptfile); do
   if [[ $PACKAGE == *deb ]]; then
     PACKAGE_NAME=$(basename $PACKAGE .deb)
     PACKAGE_FILE=$APT_CACHE_DIR/archives/$PACKAGE_NAME.deb
@@ -61,14 +57,11 @@ for PACKAGE in $(cat $BUILD_DIR/Aptfile); do
   fi
 done
 
-echo $BUILD_DIR
 mkdir -p $BUILD_DIR/.apt
-mkdir -p /app/.heroku/python/include/python2.7
 
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   topic "Installing $(basename $DEB)"
-  dpkg -x $DEB /app/.heroku/python/include/python2.7
-  echo $(ls /app/.heroku/python/include/python2.7/usr/include/)
+  dpkg -x $DEB $BUILD_DIR/.apt/
 done
 
 topic "Writing profile script"
